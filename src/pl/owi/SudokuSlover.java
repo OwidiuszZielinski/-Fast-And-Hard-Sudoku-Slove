@@ -31,14 +31,27 @@ public class SudokuSlover {
 
 
     public void display() {
-        for (int x = 0; x < 9; x++) {
-            for (int y = 0; y < 9; y++) {
-                System.out.print(" " + sudoku[x][y]);
+        System.out.println("   0 1 2   3 4 5   6 7 8");
+        System.out.println("  ========================");
+        for (int rows = 0; rows < 9; rows++) {
+            System.out.print(rows+" |");
+            for (int cols = 0; cols < 9; cols++) {
+                System.out.print(sudoku [rows][cols] + " ");
+                if ((cols+1) % 3 == 0) {
+                    System.out.print("| ");
+                }
             }
+
             System.out.println();
+            if ((rows+1) %3 == 0) {
+                System.out.println("  ========================");
+            }
         }
-        System.out.println("\n");
-    }
+
+
+            System.out.print("\n");
+        }
+
 
     public void displayref() {
         for (int x = 0; x < 9; x++) {
@@ -50,13 +63,14 @@ public class SudokuSlover {
     }
 
 
-    public ArrayList<Cords> emptycells() {
+    public ArrayList<Cords> emptycells(int[][] temp) {
 
 
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 9; y++) {
-                if (sudoku[x][y] == 0) {
+                if (temp[y][x] == 0) {
                     Cords cor = new Cords(x, y);
+
                     cords.add(cor);
                     //System.out.println("[" + cor.getX() + "]" + "[" + cor.getY() + "]");
                 }
@@ -87,7 +101,7 @@ public class SudokuSlover {
             int number = sudoku[y][x];
             if (number != 0) {
                 columnnumbers.add(number);
-                // System.out.println(columnnumbers);
+                //System.out.println(columnnumbers);
             }
 
         }
@@ -103,7 +117,7 @@ public class SudokuSlover {
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 9; y++) {
 
-                if (refsudoku[x][y] == refnumber) {
+                if (refsudoku[y][x] == refnumber) {
 
                     //TUTAJ DZIEJE SIE KLUCZOWY MOMENT KTOREGO NIE WIEDZIALEM JAK ZROBIC
                     //WARUNEK WYKRAWA Z REFERENCYJNEJ MALY KWADRAT PONIEWAZ WEZMIE TYLKO TE SAME LICZBY
@@ -153,69 +167,86 @@ public class SudokuSlover {
 
         return cell;
     }
+    //LISTA KORDOW KTÓRE MAJA 8 liczb pewnych
 
-    /*public ArrayList<Integer> checkvalue() {
-        ArrayList<Integer> checkvalue = new ArrayList<>();
-        for (int i = 1; i < 10; i++) {
-            checkvalue.add(i);
-        }
-        return checkvalue;
-    }
-*/
-    public ArrayList<Integer> calculatee() {
-        ArrayList<Integer> result = new ArrayList<>();
+    public ArrayList<Cords> calculate_cords_8_number_check() {
 
-
+        ArrayList<Cords> result = new ArrayList<>();
         for (Cords x : cords) {
+            if (checkcell(x.getX(), x.getY()).size() == 8 ) {
+                result.add(new Cords(x.getX(), x.getY()));
+
+            }
+        }
+        return result;
+
+    }
+
+
+
+    public int[][] calculatee() {
+
+        emptycells(sudoku);
+        int[][] result = new int[0][];
+
+
+        for (Cords x : calculate_cords_8_number_check()) {
             ArrayList<Integer> possible = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
             ArrayList<Integer> value = new ArrayList<>();
+            ArrayList<Cords> cords = new ArrayList<>();
 
-            if (checkcell(x.getX(), x.getY()).size() == 8) {
-
+            if (calculate_cords_8_number_check().size() > 0) {
                 value.addAll(checkcell(x.getX(), x.getY()));
-                System.out.println("[" + x.getX() + "]" + "[" + x.getY() + "]");
-                System.out.println(value);
-
+               // System.out.println(value);
                 //DLACZEGO JESLI LISTA POSSIBLE BYLA ZADEKLAROWANA W KLASIE TO NIE DZIALALO USUWANIE ELEMENTOW????
-
                 possible.removeAll(value);
-                value = possible;
-                System.out.println(possible);
-                System.out.println();
-                result = possible;
+                x.setNumber(possible.get(0));
 
+                cords.add(new Cords(x.getX(), x.getY()));
+                //System.out.println("[" + x.getX() + "]" + "[" + x.getY() + "]");
+               // System.out.println(possible);
 
             }
 
+            sudoku[x.getY()][x.getX()] = x.getNumber();
+
+
+
+
         }
+        cords.removeAll(cords);
+        result = sudoku;
 
         return result;
     }
 
 
-    /*public Integer resulttoint() {
-
-        Integer resultint = 0;
-        resultint = calculatee().get(0);
-        return resultint;
-    }*/
-
-
     public void sudokudestroy() {
 
+            sudoku = calculatee();
+            calculatee();
+            calculatee();
+            calculatee();
+            calculatee();
+        calculatee();
+        calculatee();
+        calculatee();
+        calculatee();
+        calculatee();
+        calculatee();
 
-            while (cords.size() > 0) {
-
-                for (Cords x : cords) {
-                    sudoku[x.getX()][x.getY()] = calculatee().get(0);
 
 
-            }
 
-        }
+        //wprowadza we wszystkie miejsca z kordow
+        //chce aby wprowadzilo w pierwsze i poszlo dalej
     }
 
 }
+
+
+
+
 
 
 

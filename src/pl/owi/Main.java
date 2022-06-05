@@ -10,10 +10,17 @@ public class Main {
 
         SudokuSlover sc = new SudokuSlover();
         sc.display();
+        //sc.checkqrt(5,1);
+        //sc.numbers_8();
+        //sc.calculatee();
+        //sc.calculatee();
+        //sc.calculate_cords_8_number_check();
 
-        sc.emptycells();
-        sc.calculatee();
-        //sc.sudokudestroy();
+        //sc.calc();
+       //sc.towritenumber();
+        sc.sudokudestroy();
+
+
         sc.display();
         //sc.getnumber();
         //sc.checkqrt(1,2);
