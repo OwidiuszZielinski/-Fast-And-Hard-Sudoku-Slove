@@ -222,18 +222,14 @@ public class SudokuSlover {
 
 
     public void sudokudestroy() {
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 9; y++) {
+                while (sudoku[x][y] == 0) {
+                    calculatee();
+                }
 
-            sudoku = calculatee();
-            calculatee();
-            calculatee();
-            calculatee();
-            calculatee();
-        calculatee();
-        calculatee();
-        calculatee();
-        calculatee();
-        calculatee();
-        calculatee();
+            }
+        }
 
 
 
