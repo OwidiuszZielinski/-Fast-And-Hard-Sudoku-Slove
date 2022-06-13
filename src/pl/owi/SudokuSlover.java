@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class SudokuSlover {
 
     ArrayList<Cords> cords = new ArrayList<>();
-
+    ArrayList<Integer> possible = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
     int[][] sudoku = {
             {8, 0, 0, 4, 5, 0, 1, 3, 0},
             {0, 4, 0, 0, 8, 1, 0, 0, 2},
@@ -29,29 +29,44 @@ public class SudokuSlover {
             {7, 7, 7, 8, 8, 8, 9, 9, 9},
             {7, 7, 7, 8, 8, 8, 9, 9, 9},};
 
+    public static ArrayList<Integer> removeDuplicates(ArrayList<Integer> cella) {
+
+
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
+
+        for (Integer x : cella) {
+
+            if (!numbers.contains(x)) {
+
+                numbers.add(x);
+            }
+        }
+
+
+        return numbers;
+    }
 
     public void display() {
         System.out.println("   0 1 2   3 4 5   6 7 8");
         System.out.println("  ========================");
         for (int rows = 0; rows < 9; rows++) {
-            System.out.print(rows+" |");
+            System.out.print(rows + " |");
             for (int cols = 0; cols < 9; cols++) {
-                System.out.print(sudoku [rows][cols] + " ");
-                if ((cols+1) % 3 == 0) {
+                System.out.print(sudoku[rows][cols] + " ");
+                if ((cols + 1) % 3 == 0) {
                     System.out.print("| ");
                 }
             }
 
             System.out.println();
-            if ((rows+1) %3 == 0) {
+            if ((rows + 1) % 3 == 0) {
                 System.out.println("  ========================");
             }
         }
 
 
-            System.out.print("\n");
-        }
-
+        System.out.print("\n");
+    }
 
     public void displayref() {
         for (int x = 0; x < 9; x++) {
@@ -61,7 +76,6 @@ public class SudokuSlover {
             System.out.println();
         }
     }
-
 
     public ArrayList<Cords> emptycells(int[][] temp) {
 
@@ -138,25 +152,6 @@ public class SudokuSlover {
         return checkqr;
     }
 
-
-    public static ArrayList<Integer> removeDuplicates(ArrayList<Integer> cella) {
-
-
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
-
-        for (Integer x : cella) {
-
-            if (!numbers.contains(x)) {
-
-                numbers.add(x);
-            }
-        }
-
-
-        return numbers;
-    }
-
-
     public ArrayList<Integer> checkcell(int cor_X, int cor_Y) {
         ArrayList<Integer> cell = new ArrayList<>();
         cell.addAll(checkrow(cor_Y));
@@ -173,7 +168,7 @@ public class SudokuSlover {
 
         ArrayList<Cords> result = new ArrayList<>();
         for (Cords x : cords) {
-            if (checkcell(x.getX(), x.getY()).size() == 8 ) {
+            if (checkcell(x.getX(), x.getY()).size() == 8) {
                 result.add(new Cords(x.getX(), x.getY()));
 
             }
@@ -182,8 +177,6 @@ public class SudokuSlover {
 
     }
 
-
-
     public int[][] calculatee() {
 
         emptycells(sudoku);
@@ -191,27 +184,25 @@ public class SudokuSlover {
 
 
         for (Cords x : calculate_cords_8_number_check()) {
-            ArrayList<Integer> possible = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+
+            possible.addAll(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
             ArrayList<Integer> value = new ArrayList<>();
             ArrayList<Cords> cords = new ArrayList<>();
 
             if (calculate_cords_8_number_check().size() > 0) {
                 value.addAll(checkcell(x.getX(), x.getY()));
-               // System.out.println(value);
+                // System.out.println(value);
                 //DLACZEGO JESLI LISTA POSSIBLE BYLA ZADEKLAROWANA W KLASIE TO NIE DZIALALO USUWANIE ELEMENTOW????
                 possible.removeAll(value);
                 x.setNumber(possible.get(0));
 
                 cords.add(new Cords(x.getX(), x.getY()));
                 //System.out.println("[" + x.getX() + "]" + "[" + x.getY() + "]");
-               // System.out.println(possible);
+                // System.out.println(possible);
 
             }
 
             sudoku[x.getY()][x.getX()] = x.getNumber();
-
-
-
 
         }
         cords.removeAll(cords);
@@ -220,20 +211,15 @@ public class SudokuSlover {
         return result;
     }
 
-
     public void sudokudestroy() {
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 9; y++) {
-                while (sudoku[x][y] == 0) {
+                if (sudoku[x][y] == 0) {
                     calculatee();
                 }
 
             }
         }
-
-
-
-
         //wprowadza we wszystkie miejsca z kordow
         //chce aby wprowadzilo w pierwsze i poszlo dalej
     }
