@@ -11,12 +11,14 @@ public class Main {
         SudokuSlover sc = new SudokuSlover();
         sc.display();
 
-        sc.sudokudestroy();
 
+        sc.bestcords(sc.calchard());
 
 
 
         sc.display();
 
+        sc.calculatee();
     }
 }
+//liste mozliwosci zeby petla for mogla do niej cofac

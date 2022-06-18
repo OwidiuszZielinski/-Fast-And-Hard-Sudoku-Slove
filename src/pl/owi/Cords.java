@@ -9,6 +9,9 @@ public class Cords {
         this.y = y;
     }
 
+    public Cords(int x, int y, ArrayList<Integer> posible) {
+    }
+
     public int getX() {
         return x;
     }
@@ -30,10 +33,11 @@ public class Cords {
     int x;
     int y;
 
-    public Cords(int x, int y, int number) {
+    public Cords(int x, int y, int number,ArrayList<Integer> temp) {
         this.x = x;
         this.y = y;
         this.number = number;
+        this.temp = temp;
     }
 
     public int getNumber() {
@@ -46,6 +50,15 @@ public class Cords {
 
     int number;
 
+    public ArrayList<Integer> getTemp() {
+        return temp;
+    }
+
+    public void setTemp(ArrayList<Integer> temp) {
+        this.temp = temp;
+    }
+
+    ArrayList<Integer> temp;
 
 
 
