@@ -30,6 +30,15 @@ public class Stack {
     public void setPossible(ArrayList<Integer> possible) {
         this.possible = possible;
     }
+
+    public Cords getCords() {
+        return cords;
+    }
+
+    public void setCords(Cords cords) {
+        this.cords = cords;
+    }
+
     Cords cords;
     int [][] sudoku;
     ArrayList<Integer> possible;

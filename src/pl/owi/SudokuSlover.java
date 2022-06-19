@@ -4,8 +4,6 @@ import java.util.*;
 
 public class SudokuSlover {
 
-
-    ArrayList<Integer> possible = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
     int[][] sudoku = {
             {6, 0, 0, 0, 0, 0, 5, 3, 0},
             {0, 0, 0, 0, 0, 2, 7, 0, 0},
@@ -29,22 +27,14 @@ public class SudokuSlover {
             {7, 7, 7, 8, 8, 8, 9, 9, 9},};
 
     public static ArrayList<Integer> removeDuplicates(ArrayList<Integer> cella) {
-
-
         ArrayList<Integer> numbers = new ArrayList<Integer>();
-
         for (Integer x : cella) {
-
             if (!numbers.contains(x)) {
-
                 numbers.add(x);
             }
         }
-
-
         return numbers;
     }
-
     public void display() {
         System.out.println("   0 1 2   3 4 5   6 7 8");
         System.out.println("  ========================");
@@ -56,26 +46,13 @@ public class SudokuSlover {
                     System.out.print("| ");
                 }
             }
-
             System.out.println();
             if ((rows + 1) % 3 == 0) {
                 System.out.println("  ========================");
             }
         }
-
-
         System.out.print("\n");
     }
-
-    public void displayref() {
-        for (int x = 0; x < 9; x++) {
-            for (int y = 0; y < 9; y++) {
-                System.out.print(" " + refsudoku[x][y]);
-            }
-            System.out.println();
-        }
-    }
-
     public ArrayList<Cords> emptycells(int[][] temp) {
         ArrayList<Cords> cords = new ArrayList<>();
 
@@ -83,15 +60,12 @@ public class SudokuSlover {
             for (int y = 0; y < 9; y++) {
                 if (temp[y][x] == 0) {
                     Cords cor = new Cords(x, y);
-
                     cords.add(cor);
-                    //System.out.println("[" + cor.getX() + "]" + "[" + cor.getY() + "]");
                 }
             }
         }
         return cords;
     }
-
     public ArrayList<Integer> checkrow(int y) {
         ArrayList<Integer> rownumbers = new ArrayList<>();
 
@@ -99,14 +73,10 @@ public class SudokuSlover {
             int number = sudoku[y][i];
             if (number != 0) {
                 rownumbers.add(number);
-                //System.out.println(rownumbers);
             }
-
         }
         return rownumbers;
-
     }
-
     public ArrayList<Integer> checkcolumn(int x) {
         ArrayList<Integer> columnnumbers = new ArrayList<>();
 
@@ -114,13 +84,12 @@ public class SudokuSlover {
             int number = sudoku[y][x];
             if (number != 0) {
                 columnnumbers.add(number);
-                //System.out.println(columnnumbers);
+
             }
 
         }
         return columnnumbers;
     }
-
     public ArrayList<Integer> checkqrt(int cor_X, int cor_Y) {
         ArrayList<Integer> checkqr = new ArrayList<>();
 
@@ -131,219 +100,49 @@ public class SudokuSlover {
             for (int y = 0; y < 9; y++) {
 
                 if (refsudoku[y][x] == refnumber) {
-
-                    //TUTAJ DZIEJE SIE KLUCZOWY MOMENT KTOREGO NIE WIEDZIALEM JAK ZROBIC
-                    //WARUNEK WYKRAWA Z REFERENCYJNEJ MALY KWADRAT PONIEWAZ WEZMIE TYLKO TE SAME LICZBY
-                    //DALEJ MOZEMY DODAC WSZYSTKIE ELEMENTY Z MALEGO KWADRATU
-
                     int number = sudoku[x][y];
                     if (number != 0) {
                         checkqr.add(number);
-                        //System.out.println(checkqr);
-
-
                     }
-
                 }
             }
-
         }
         return checkqr;
     }
-
-    public ArrayList<Integer> checkcell(int cor_X, int cor_Y) {
-        ArrayList<Integer> cell = new ArrayList<>();
-        cell.addAll(checkrow(cor_Y));
-        cell.addAll(checkcolumn(cor_X));
-        cell.addAll(checkqrt(cor_X, cor_Y));
-        cell = removeDuplicates(cell);
-        //System.out.println(cell);
-
-        return cell;
-    }
-
-    public ArrayList<Integer> checkcell2(Cords cord) {
+    public ArrayList<Integer> checkexisting(Cords cord) {
         ArrayList<Integer> cell = new ArrayList<>();
         cell.addAll(checkrow(cord.getY()));
         cell.addAll(checkcolumn(cord.getX()));
         cell.addAll(checkqrt(cord.getX(), cord.getY()));
         cell = removeDuplicates(cell);
-        //System.out.println(cell);
-
         return cell;
     }
-    //LISTA KORDOW KT�RE MAJA 8 liczb pewnych
-
-
-    public ArrayList<Cords> calculate_cords_8_number_check() {
-
-        ArrayList<Cords> result = new ArrayList<>();
-        for (Cords x : emptycells(sudoku)) {
-            if (checkcell(x.getX(), x.getY()).size() == 8) {
-                result.add(new Cords(x.getX(), x.getY()));
-                //System.out.println("[" + x.getX() + "]" + "[" + x.getY() + "]");
-            }
-
-        }
-        return result;
-
-    }
-
-    public ArrayList<Cords> calculate_cords_7_number_check() {
-
-        ArrayList<Cords> result = new ArrayList<>();
-        for (Cords x : emptycells(sudoku)) {
-            if (checkcell(x.getX(), x.getY()).size() == 7) {
-                result.add(new Cords(x.getX(), x.getY()));
-                //System.out.println("[" + x.getX() + "]" + "[" + x.getY() + "]");
-            }
-
-        }
-        return result;
-
-    }
-
-    public int[][] calculatee() {
-
-            emptycells(sudoku);
-            int[][] result;
-
-
-            for (Cords x : calculate_cords_8_number_check()) {
-
-                possible.addAll(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
-                ArrayList<Integer> value = new ArrayList<>();
-                ArrayList<Cords> cords = new ArrayList<>();
-
-                value.addAll(checkcell(x.getX(), x.getY()));
-                // System.out.println(value);
-                //DLACZEGO JESLI LISTA POSSIBLE BYLA ZADEKLAROWANA W KLASIE TO NIE DZIALALO USUWANIE ELEMENTOW????
-                possible.removeAll(value);
-                x.setNumber(possible.get(0));
-
-                cords.add(new Cords(x.getX(), x.getY()));
-                //System.out.println("[" + x.getX() + "]" + "[" + x.getY() + "]");
-                // System.out.println(possible);
-
-
-                sudoku[x.getY()][x.getX()] = x.getNumber();
-
-
-
-            }
-
-            result = sudoku;
-
-
-            return result;
-        }
-
-        /*public int[][] calculatee() {
-
-            emptycells(sudoku);
-            int[][] result;
-
-
-            for (Cords x : calculate_cords_8_number_check()) {
-
-                possible.addAll(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
-                ArrayList<Integer> value = new ArrayList<>();
-                ArrayList<Cords> cords = new ArrayList<>();
-
-                value.addAll(checkcell(x.getX(), x.getY()));
-                // System.out.println(value);
-                //DLACZEGO JESLI LISTA POSSIBLE BYLA ZADEKLAROWANA W KLASIE TO NIE DZIALALO USUWANIE ELEMENTOW????
-                possible.removeAll(value);
-                x.setNumber(possible.get(0));
-
-                cords.add(new Cords(x.getX(), x.getY()));
-                //System.out.println("[" + x.getX() + "]" + "[" + x.getY() + "]");
-                // System.out.println(possible);
-
-
-                sudoku[x.getY()][x.getX()] = x.getNumber();
-
-
-
-            }
-            cords.removeAll(cords);
-            result = sudoku;
-
-
-            return result;
-        }
-
-    */
-
-
-
-
-    public ArrayList<Corelation> calchard(){
-        ArrayList<Cords> cords  = emptycells(sudoku);
-
-        ArrayList<Stack> stacks = new ArrayList<>();
+    public ArrayList<Corelation> calchard() {
+        ArrayList<Cords> cords = emptycells(sudoku);
         ArrayList<Corelation> corelations = new ArrayList<>();
-
-        for (Cords x : cords){
-            corelations.add(new Corelation(checkcell2(x),x));
-
+        for (Cords x : cords) {
+            corelations.add(new Corelation(checkexisting(x), x));
         }
         return corelations;
     }
-    public Cords bestcords(ArrayList<Corelation> corelations) {
+
+    public Corelation bestcords(ArrayList<Corelation> corelations) {
+
         Collections.reverse(corelations);
         corelations.sort(Corelation::compareTo);
-        Cords cord = corelations.get(0).getCord();
-        System.out.println(cord.getX() + cord.getY());
-        return cord;
+        Corelation corel = new Corelation(corelations.get(0).existingnumbers,corelations.get(0).getCord());
+
+        return corel;
     }
 
 
-  /*  public int[][] calculatehard() {
-        emptycells(sudoku);
-        int[][] result;
 
 
-        for (Cords x : calculate_cords_7_number_check()) {
-            ArrayList<Integer> posible = new ArrayList<>();
-            posible.addAll(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
-            ArrayList<Integer> value = new ArrayList<>();
-            value.addAll(checkcell(x.getX(), x.getY()));
-            System.out.println("[" + x.getX() + "]" + "[" + x.getY() + "]" + " Kordy");
-            System.out.println(value + " Liczby pewne");
-            posible.removeAll(value);
-            posible = removeDuplicates(posible);
-            System.out.println(posible + " Liczby mozliwe");
-        }
-
-        result = sudoku;
-
-        return result;
-
-    }
-
-    public int[][] tryslove(){
 
 
-     return null;
-    }
-
-    public void sudokudestroy() {
-        for (int x = 0; x < 9; x++) {
-            for (int y = 0; y < 9; y++) {
-                if (sudoku[x][y] == 0) {
-                    calculatee();
+}
 
 
-                }
 
-
-                }
-            }
-        }
-*/
-        //wprowadza we wszystkie miejsca z kordow
-        //chce aby wprowadzilo w pierwsze i poszlo dalej
-    }
 
 

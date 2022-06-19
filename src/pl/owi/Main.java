@@ -14,11 +14,9 @@ public class Main {
 
         sc.bestcords(sc.calchard());
 
-
-
         sc.display();
 
-        sc.calculatee();
+
     }
 }
 //liste mozliwosci zeby petla for mogla do niej cofac
