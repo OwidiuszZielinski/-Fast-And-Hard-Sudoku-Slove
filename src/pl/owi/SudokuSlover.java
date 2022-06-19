@@ -16,6 +16,7 @@ public class SudokuSlover {
             {0, 9, 0, 0, 0, 0, 4, 0, 0}
     };
 
+
     int[][] refsudoku = {
             {1, 1, 1, 2, 2, 2, 3, 3, 3},
             {1, 1, 1, 2, 2, 2, 3, 3, 3},
@@ -152,39 +153,48 @@ public class SudokuSlover {
 
 
     public void sudokuDestroy() {
+        ArrayList<Layer> stack = new ArrayList<>();
 
         while (emptycells(sudoku).size() > 0) {
+            int exsistingnumbers = bestcords(calchard()).existingnumbers.size();
 
-            if (bestcords(calchard()).existingnumbers.size() == 8) {
+            if (exsistingnumbers == 8) {
                 sudoku[bestcords(calchard()).getCord().getY()][bestcords(calchard()).getCord().getX()] = possiblenumber(bestcords(calchard())).get(0);
+            }
+
+            if (exsistingnumbers < 8) {
+                Layer layer = new Layer(bestcords(calchard()).getCord(), sudoku, possiblenumber(bestcords(calchard())));
+                stack.add(layer);
+
+                sudoku[bestcords(calchard()).getCord().getY()][bestcords(calchard()).getCord().getX()] = (stack.get(stack.size() - 1)).getPossible().get(0);
+                stack.get(stack.size() - 1).getPossible().remove(0);
 
             }
 
-            if (bestcords(calchard()).existingnumbers.size() < 8) {
-                Stack stack = new Stack(bestcords(calchard()).getCord(), sudoku, possiblenumber(bestcords(calchard())));
-                sudoku[bestcords(calchard()).getCord().getY()][bestcords(calchard()).getCord().getX()] = stack.getPossible().get(0);
-                stack.getPossible().remove(0);
-                display();
+            if (exsistingnumbers == 9) {
 
-                if (bestcords(calchard()).existingnumbers.size() == 9) {
-                    System.out.println(bestcords(calchard()).existingnumbers.size());
-                    sudoku = stack.getSudoku();
-                    System.out.println("xd");
+                sudoku[stack.get(stack.size()-1).getCords().getY()][stack.get(stack.size()-1).getCords().getX()] = (stack.get(stack.size() - 1)).getPossible().get(0);
+                sudoku = stack.get(stack.size() - 1).getSudoku();
 
+                if (stack.get(stack.size() - 1).getPossible().size() == 0) {
+
+                    stack.remove(stack.get(stack.size() - 1));
 
                 }
-
 
             }
 
 
         }
-
-
     }
 
-
 }
+
+
+
+
+
+
 
 
 

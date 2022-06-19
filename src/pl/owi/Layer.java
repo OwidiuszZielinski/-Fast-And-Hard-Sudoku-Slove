@@ -2,10 +2,10 @@ package pl.owi;
 
 import java.util.ArrayList;
 
-public class Stack {
+public class Layer {
 
 
-    public Stack(Cords cords, int[][] sudoku, ArrayList<Integer> possible) {
+    public Layer(Cords cords, int[][] sudoku, ArrayList<Integer> possible) {
 
         this.cords = cords;
         this.sudoku = sudoku;

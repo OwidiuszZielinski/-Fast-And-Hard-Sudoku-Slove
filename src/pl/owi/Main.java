@@ -11,7 +11,7 @@ public class Main {
         SudokuSlover sc = new SudokuSlover();
 
         sc.sudokuDestroy();
-
+        sc.display();
 
 
 
