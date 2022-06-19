@@ -5,15 +5,16 @@ import java.util.*;
 public class SudokuSlover {
 
     int[][] sudoku = {
-            {6, 0, 0, 0, 0, 0, 5, 3, 0},
-            {0, 0, 0, 0, 0, 2, 7, 0, 0},
-            {5, 0, 7, 0, 9, 6, 0, 1, 8},
-            {0, 0, 6, 0, 0, 1, 0, 8, 0},
-            {0, 9, 8, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 2, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 9, 0, 0},
-            {0, 0, 0, 2, 0, 0, 0, 4, 3},
-            {3, 1, 0, 0, 0, 9, 0, 6, 2},};
+            {8, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 3, 6, 0, 0, 0, 0, 0},
+            {0, 7, 0, 0, 9, 0, 2, 0, 0},
+            {0, 5, 0, 0, 0, 7, 0, 0, 0},
+            {0, 0, 0, 0, 4, 5, 7, 0, 0},
+            {0, 0, 0, 1, 0, 0, 0, 3, 0},
+            {0, 0, 1, 0, 0, 0, 0, 6, 8},
+            {0, 0, 8, 5, 0, 0, 0, 1, 0},
+            {0, 9, 0, 0, 0, 0, 4, 0, 0}
+    };
 
     int[][] refsudoku = {
             {1, 1, 1, 2, 2, 2, 3, 3, 3},
@@ -35,6 +36,7 @@ public class SudokuSlover {
         }
         return numbers;
     }
+
     public void display() {
         System.out.println("   0 1 2   3 4 5   6 7 8");
         System.out.println("  ========================");
@@ -53,6 +55,7 @@ public class SudokuSlover {
         }
         System.out.print("\n");
     }
+
     public ArrayList<Cords> emptycells(int[][] temp) {
         ArrayList<Cords> cords = new ArrayList<>();
 
@@ -66,6 +69,7 @@ public class SudokuSlover {
         }
         return cords;
     }
+
     public ArrayList<Integer> checkrow(int y) {
         ArrayList<Integer> rownumbers = new ArrayList<>();
 
@@ -77,6 +81,7 @@ public class SudokuSlover {
         }
         return rownumbers;
     }
+
     public ArrayList<Integer> checkcolumn(int x) {
         ArrayList<Integer> columnnumbers = new ArrayList<>();
 
@@ -90,6 +95,7 @@ public class SudokuSlover {
         }
         return columnnumbers;
     }
+
     public ArrayList<Integer> checkqrt(int cor_X, int cor_Y) {
         ArrayList<Integer> checkqr = new ArrayList<>();
 
@@ -109,6 +115,7 @@ public class SudokuSlover {
         }
         return checkqr;
     }
+
     public ArrayList<Integer> checkexisting(Cords cord) {
         ArrayList<Integer> cell = new ArrayList<>();
         cell.addAll(checkrow(cord.getY()));
@@ -117,6 +124,7 @@ public class SudokuSlover {
         cell = removeDuplicates(cell);
         return cell;
     }
+
     public ArrayList<Corelation> calchard() {
         ArrayList<Cords> cords = emptycells(sudoku);
         ArrayList<Corelation> corelations = new ArrayList<>();
@@ -134,20 +142,46 @@ public class SudokuSlover {
 
         return corel;
     }
-    public ArrayList<Integer> possiblenumber(Corelation corel){
+
+    public ArrayList<Integer> possiblenumber(Corelation corel) {
         ArrayList<Integer> possiblereferention = new ArrayList<>();
-        possiblereferention.addAll(Arrays.asList(1,2,3,4,5,6,7,8,9));
+        possiblereferention.addAll(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
         possiblereferention.removeAll(corel.existingnumbers);
         return possiblereferention;
-        }
-
-
-
     }
 
 
+    public void sudokuDestroy() {
+
+        while (emptycells(sudoku).size() > 0) {
+
+            if (bestcords(calchard()).existingnumbers.size() == 8) {
+                sudoku[bestcords(calchard()).getCord().getY()][bestcords(calchard()).getCord().getX()] = possiblenumber(bestcords(calchard())).get(0);
+
+            }
+
+            if (bestcords(calchard()).existingnumbers.size() < 8) {
+                Stack stack = new Stack(bestcords(calchard()).getCord(), sudoku, possiblenumber(bestcords(calchard())));
+                sudoku[bestcords(calchard()).getCord().getY()][bestcords(calchard()).getCord().getX()] = stack.getPossible().get(0);
+                stack.getPossible().remove(0);
+                display();
+
+                if (bestcords(calchard()).existingnumbers.size() == 9) {
+                    System.out.println(bestcords(calchard()).existingnumbers.size());
+                    sudoku = stack.getSudoku();
+                    System.out.println("xd");
 
 
+                }
+
+
+            }
+
+
+        }
+
+
+    }
 
 
 }

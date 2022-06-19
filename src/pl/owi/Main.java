@@ -9,12 +9,10 @@ public class Main {
     public static void main(String[] args) {
 
         SudokuSlover sc = new SudokuSlover();
-        sc.display();
+
+        sc.sudokuDestroy();
 
 
-        sc.bestcords(sc.calchard());
-
-        sc.display();
 
 
     }
