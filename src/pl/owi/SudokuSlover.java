@@ -130,9 +130,19 @@ public class SudokuSlover {
 
         Collections.reverse(corelations);
         corelations.sort(Corelation::compareTo);
-        Corelation corel = new Corelation(corelations.get(0).existingnumbers,corelations.get(0).getCord());
+        Corelation corel = new Corelation(corelations.get(0).existingnumbers, corelations.get(0).getCord());
 
         return corel;
+    }
+    public ArrayList<Integer> possiblenumber(Corelation corel){
+        ArrayList<Integer> possiblereferention = new ArrayList<>();
+        possiblereferention.addAll(Arrays.asList(1,2,3,4,5,6,7,8,9));
+        possiblereferention.removeAll(corel.existingnumbers);
+        return possiblereferention;
+        }
+
+
+
     }
 
 
