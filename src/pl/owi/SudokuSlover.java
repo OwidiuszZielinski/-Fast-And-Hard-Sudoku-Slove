@@ -149,23 +149,23 @@ public class SudokuSlover {
     }
 
 
+
     public void sudokuDestroy() {
-        ArrayList<Layer> stack = new ArrayList<>();
+        ArrayList <Layer> stack = new ArrayList<>();
 
         while (emptycells(sudoku).size() > 0) {
             int exsistingnumbers = return_cords_with_most_exsisting(return_exsisting_with_cords()).existingnumbers.size();
-            int y = return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord().getY();
-            int x = return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord().getX();
 
             if (exsistingnumbers == 8) {
-                sudoku[y][x] = possiblenumber(return_cords_with_most_exsisting(return_exsisting_with_cords())).get(0);
+                sudoku[return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord().getY()][return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord().getX()] = possiblenumber(return_cords_with_most_exsisting(return_exsisting_with_cords())).get(0);
 
 
-            } else if (exsistingnumbers < 8) {
+            }
+            if (exsistingnumbers < 8) {
                 Layer layer = new Layer(return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord(), sudoku, possiblenumber(return_cords_with_most_exsisting(return_exsisting_with_cords())));
                 stack.add(layer);
 
-                sudoku[y][x] = (stack.get(stack.size() - 1)).getPossible().get(0);
+                sudoku[return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord().getY()][return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord().getX()] = (stack.get(stack.size() - 1)).getPossible().get(0);
                 stack.get(stack.size() - 1).getPossible().remove(0);
             }
 
@@ -177,7 +177,7 @@ public class SudokuSlover {
                 } else {
 
                     sudoku = stack.get(stack.size() - 1).getSudoku();
-                    sudoku[y][x] = (stack.get(stack.size() - 1)).getPossible().get(0);
+                    sudoku[return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord().getY()][return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord().getX()] = (stack.get(stack.size() - 1)).getPossible().get(0);
                     stack.get((stack.size() - 1)).possible.remove(0);
                 }
 
