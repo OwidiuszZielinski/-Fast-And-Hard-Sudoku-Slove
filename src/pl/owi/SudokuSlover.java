@@ -149,6 +149,22 @@ public class SudokuSlover {
     }
 
 
+    public int return_y(){
+        int y = return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord().getY();
+        return y;
+
+    }
+    public int return_x(){
+        int x = return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord().getX();
+        return x;
+
+    }
+
+    public ArrayList<Integer> posible(){
+        ArrayList<Integer> posible = possiblenumber(return_cords_with_most_exsisting(return_exsisting_with_cords()));
+        return posible;
+    }
+
 
     public void sudokuDestroy() {
         ArrayList <Layer> stack = new ArrayList<>();
@@ -157,15 +173,15 @@ public class SudokuSlover {
             int exsistingnumbers = return_cords_with_most_exsisting(return_exsisting_with_cords()).existingnumbers.size();
 
             if (exsistingnumbers == 8) {
-                sudoku[return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord().getY()][return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord().getX()] = possiblenumber(return_cords_with_most_exsisting(return_exsisting_with_cords())).get(0);
+                sudoku[return_y()][return_x()] = posible().get(0);
 
 
             }
             if (exsistingnumbers < 8) {
-                Layer layer = new Layer(return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord(), sudoku, possiblenumber(return_cords_with_most_exsisting(return_exsisting_with_cords())));
+                Layer layer = new Layer(return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord(), sudoku, posible());
                 stack.add(layer);
 
-                sudoku[return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord().getY()][return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord().getX()] = (stack.get(stack.size() - 1)).getPossible().get(0);
+                sudoku[return_y()][return_x()] = (stack.get(stack.size() - 1)).getPossible().get(0);
                 stack.get(stack.size() - 1).getPossible().remove(0);
             }
 
@@ -177,7 +193,7 @@ public class SudokuSlover {
                 } else {
 
                     sudoku = stack.get(stack.size() - 1).getSudoku();
-                    sudoku[return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord().getY()][return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord().getX()] = (stack.get(stack.size() - 1)).getPossible().get(0);
+                    sudoku[return_y()][return_x()] = (stack.get(stack.size() - 1)).getPossible().get(0);
                     stack.get((stack.size() - 1)).possible.remove(0);
                 }
 
