@@ -14,7 +14,7 @@ public class Layer {
     }
 
 
-    private int[][] copyArray(int[][] array){
+    public int[][] copyArray(int[][] array){
         int[][] result = new int[array.length][];
         for (int row = 0; row<array.length; row++) {
             result[row] = Arrays.copyOf(array[row],array[row].length);

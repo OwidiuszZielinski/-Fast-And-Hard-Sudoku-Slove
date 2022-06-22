@@ -6,16 +6,15 @@ public class SudokuSlover {
 
 
     int[][] sudoku = {
-            {8, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 3, 6, 0, 0, 0, 0, 0},
-            {0, 7, 0, 0, 9, 0, 2, 0, 0},
-            {0, 5, 0, 0, 0, 7, 0, 0, 0},
-            {0, 0, 0, 0, 4, 5, 7, 0, 0},
-            {0, 0, 0, 1, 0, 0, 0, 3, 0},
-            {0, 0, 1, 0, 0, 0, 0, 6, 8},
-            {0, 0, 8, 5, 0, 0, 0, 1, 0},
-            {0, 9, 0, 0, 0, 0, 4, 0, 0}
-    };
+        {0, 2, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 6, 0, 0, 0, 0, 3},
+        {0, 7, 4, 0, 8, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 3, 0, 0, 2},
+        {0, 8, 0, 0, 4, 0, 0, 1, 0},
+        {6, 0, 0, 5, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 1, 0, 7, 8, 0},
+        {5, 0, 0, 0, 0, 9, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 4, 0},};
 
     int[][] refsudoku = {
             {1, 1, 1, 2, 2, 2, 3, 3, 3},
@@ -177,26 +176,30 @@ public class SudokuSlover {
 
 
             }
-            if (exsistingnumbers < 8) {
-                Layer layer = new Layer(return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord(), sudoku, posible());
+            if (exsistingnumbers < 8 ) {
+
+                Layer layer = new Layer(return_cords_with_most_exsisting(return_exsisting_with_cords()).getCord(),sudoku, posible());
                 stack.add(layer);
 
                 sudoku[return_y()][return_x()] = (stack.get(stack.size() - 1)).getPossible().get(0);
                 stack.get(stack.size() - 1).getPossible().remove(0);
             }
 
-            if (exsistingnumbers == 9) {
+            if (exsistingnumbers == 9 ) {
 
-                if (stack.get(stack.size() - 1).getPossible().size() == 0) {
+                if (stack.get(stack.size() - 1).getPossible().size() == 0 ) {
                     stack.remove(stack.get(stack.size() - 1));
 
                 } else {
 
-                    sudoku = stack.get(stack.size() - 1).getSudoku();
+                    sudoku = stack.get(stack.size()-1).copyArray(stack.get(stack.size() - 1).getSudoku());
                     sudoku[return_y()][return_x()] = (stack.get(stack.size() - 1)).getPossible().get(0);
                     stack.get((stack.size() - 1)).possible.remove(0);
                 }
 
+            }
+            if (stack.size() == 0 ) {
+                System.out.println("pra");
             }
 
         }
