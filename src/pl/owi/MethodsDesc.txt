@@ -1,0 +1,51 @@
+public ArrayList<Cords> emptycells(int[][] temp)
+//Metoda sprawdza puste komórki sudoku,iteruje wiersze i kolumny petla for i sprawdza warunek jesli wartosc y x jest rowna 0 to tworzy
+    //obiekt klasy Cords i dodaje go do listy.
+
+
+    //Metoda sprawdza liczby wprowadzone w wierszu,iterujemy tylko wiersze z parametrem y oraz i jesli komorka jest rozna od zera dodajemy do listy intow i zwracamy
+        public ArrayList<Integer> checkrow(int y)
+
+        //Metoda sprawdza liczby wprowadzone w kolumnie,iterujemy tylko wiersze z parametrem x oraz i jesli komorka jest rozna od zera dodajemy do listy intow i zwracamy
+       public ArrayList<Integer> checkcolumn(int x)
+
+
+      //Aby sprawdzic male kwadraty, zadeklarowalismy tablice referencyjna ktora pod kazdy kwadrat 3x3 ma inne liczby,aby sprawdzic przyjmujemy kordynaty x,y
+       //zmienna refnumber to liczba z tablicy referencyjnej pod ktora sa puste miejsca z listy emptycels. Bierzemy puste pole z emtycells, sprawdzamy odpowiednik w
+       //referencyjnej i zbieramy dla wszystkich liczb takich samych liczby pewne iterujac po calej tablicy sudoku i warunek jestli referencyjna x y jest rowna refnumber,
+       //jesli iteracja po refsudoku jest rowna temu co jest w cordach x,y z emptycells jesli to prawda tworzona jest zmienna number ktora jest rowna miejscu z sudoku
+       //i jesli ona jest rozna od zera to mamy liczbe z kwadratu.
+       public ArrayList<Integer> check_3x3(int cor_X, int cor_Y)
+
+
+     //Metoda zbiera pewne liczby dla pustego kodrdynatu oraz usuwa podwojenia.
+         public ArrayList<Integer> checkexisting(Cords cord) {
+
+
+     //Metoda zwraca obiekty zawierajace pewne liczby dla danych kordynatow.
+         public ArrayList<Corelation> return_exsisting_with_cords() {
+
+
+     //metoda zwraca cordy z najwieksza iloscia pewynch liczb
+         public Corelation return_cords_with_most_exsisting(ArrayList<Corelation> corelations) {
+
+
+     //Metoda przyjmuje obiekt Corelation i zwraca liste mozliwych liczb dla niego
+         public ArrayList<Integer> possiblenumber(Corelation corel) {
+
+
+     //metoda zwraca wspolrzedna x dla najlepszego kandyta i obiektu Cord.
+         public int return_y(){
+
+    //Metoda rozwiazuje sudoku, tworzymy nowy stos na ktory odkladane beda dane,dopoki mamy puste miejsca, jesli ilosc pewnych jest 8 ti zapisujemy dana komorke sudoku, brakujaca
+       //jesli jest mniej niz 8 to tworzymy nowa warstwe stosu ktora skada sie z obiektu cords posiadajacego x,y,tablicy sudoku zadeklarowanej,liczb pewnych,
+       //przyjmujemy pierwszego kandydata z mozliwych ze stosu, nastepnie go usuwamy. jesli pewne sa rowne 9 i jesli mozliwe na ostatniej warstwie jest rowne 0 to  usuwamy ostania warstwe
+       //inaczej pobieramy stan sudoku sprzed wrzuceniia liczby i wrzucamy kolejna z mozliwych , usuwamy założona liczbe .
+       public void sudokuDestroy() {
+         //Problem wynikał z tego ,że przy obiektach które nie są typami prostymi takimi jak np int. Adres w pamięci czyli referencja dla obiektu
+                           //zapisywana jest na stałe. Ustanawiając jej wartość po znaku "=" odnosiliśmy się bezpośrednio do tego samego bytu i nie tworzymy nowego obiektu z innym miejscem w
+                           //pamieci tylko go nadpisywaliśmy. Dla obliczeń potrzebowaliśmy nowej tablicy sudoku która będzie osobnym obiektem ,a nie nadpisywaną tablicą z poprzednich obliczeń.
+                           //Tworzenie nowej tablicy sudoku przejeła metoda copyarray i z niej musilismy wywolac utworzenie nowej tablicy sudoku i ją przyjąć do obliczeń.
+                           //Przy tworzeniu nowego obiektu klasy Layer używając konstrukora tworzyliśmy tablicę o nowej referencji, ponieważ w ciele konstrukora wywoaliśmy metodę copyArray.
+                           //Zabrakło tego tutaj.
+       }

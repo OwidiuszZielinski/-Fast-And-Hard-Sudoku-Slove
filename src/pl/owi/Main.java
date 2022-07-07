@@ -6,34 +6,15 @@ import java.util.SortedMap;
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         SudokuSlover sudokuSlover = new SudokuSlover();
+        double startTime = System.currentTimeMillis();
+        sudokuSlover.sudokuDestroy();
+        double endTime = System.currentTimeMillis();
+        double totalTime = endTime - startTime;
+        System.out.println("Execution time in sec  : " + totalTime / 1000 + "[s]");
 
-
-
-        while (true) {
-
-            System.out.println("==== SUDOKU DESTROYER ====");
-
-
-            System.out.println("1.Rozwiaz");
-            System.out.println("2.Zakoncz");
-        int destroy = scanner.nextInt();
-            switch (destroy) {
-
-                case 1 :
-                    sudokuSlover.sudokuDestroy();
-                break;
-
-                case 2 :
-                    System.out.println("==== Program zakonczony ====");
-                    System.exit(0);
-
-                    break;
-
-
-            }
-        }
 
     }
 }
+
+
